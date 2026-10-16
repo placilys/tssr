@@ -7,10 +7,10 @@ Ce dossier contient ton site de révision, déjà construit et testé. Ce guide 
 Pas besoin de tout comprendre en détail, juste l'idée générale :
 
 - **MkDocs Material** : un outil qui transforme de simples fichiers texte (`.md`, format "Markdown") en un vrai site web avec menu, recherche, thème clair/sombre, etc. Tu écris du texte, il génère les pages.
-- **GitHub** : un site qui héberge ton projet ("dépôt" ou "repository") et te permet de le modifier directement dans ton navigateur, comme demandé.
+- **GitHub** : un site qui héberge ton projet ("dépôt" ou "repository") et te permet de le modifier directement dans ton navigateur.
 - **GitHub Pages + GitHub Actions** : deux services gratuits de GitHub. À chaque fois que tu modifies un fichier, GitHub Actions relance automatiquement MkDocs Material pour reconstruire le site, et GitHub Pages le publie à une adresse du type `https://ton-pseudo.github.io/tssr-cours/`.
 
-Résultat concret : tu modifies un fichier texte dans ton navigateur → 1 à 2 minutes plus tard, le site en ligne est à jour. Tu n'auras jamais besoin d'installer quoi que ce soit ni de taper la moindre commande.
+Résultat concret : tu modifies un fichier texte dans ton navigateur → 1 à 2 minutes plus tard, le site en ligne est à jour. Tu n'as jamais besoin d'installer quoi que ce soit ni de taper la moindre commande.
 
 ## 2. Créer ton compte GitHub
 
@@ -23,18 +23,27 @@ Résultat concret : tu modifies un fichier texte dans ton navigateur → 1 à 2 
 
 1. Une fois connecté, clique sur le **+** en haut à droite → **"New repository"**.
 2. Nom du dépôt : `tssr-cours` (tu peux choisir autre chose, mais il faudra alors l'adapter à l'étape 5).
-3. Visibilité : **Public** (tu as demandé à pouvoir partager le site).
+3. Visibilité : **Public** (nécessaire pour partager le site avec un compte gratuit).
 4. Ne coche aucune case d'initialisation (pas de README, pas de .gitignore) : on va importer nos fichiers directement.
 5. Clique sur **"Create repository"**.
 
 ## 4. Uploader les fichiers du site
 
-1. Sur la page (vide) du dépôt fraîchement créé, clique sur **"uploading an existing file"** (ou "Add file" → "Upload files").
+1. Sur la page (vide) du dépôt fraîchement créé, clique sur **"uploading an existing file"** (ou **"Add file" → "Upload files"**).
 2. Sur ton ordinateur, ouvre le dossier de ce projet et **sélectionne tout son contenu** (tous les fichiers et dossiers : `docs`, `.github`, `mkdocs.yml`, `requirements.txt`, `README.md`...).
 3. Glisse-dépose le tout dans la zone d'upload de GitHub.
 4. Tout en bas, dans "Commit changes", écris un message du type `Première version du site`, puis clique sur **"Commit changes"**.
 
-!!! Important : le dossier `.github` (avec un point devant) contient le fichier qui active la publication automatique. Vérifie bien qu'il est présent après l'upload (GitHub l'affiche parfois masqué dans l'explorateur de fichiers de ton ordinateur — active l'affichage des fichiers/dossiers cachés si besoin).
+> **⚠️ Important :** le dossier `.github` (avec un point devant) contient le fichier qui active la publication automatique. Après l'upload, vérifie qu'il apparaît bien dans la liste des fichiers de ton dépôt. Sur ton ordinateur, il peut être masqué : active l'affichage des fichiers/dossiers cachés si besoin.
+
+### Si le dossier `.github` n'a pas été envoyé
+
+Le glisser-déposer dans le navigateur ignore parfois les dossiers cachés. C'est la cause la plus fréquente d'un site qui ne se publie pas. Dans ce cas, crée le fichier à la main :
+
+1. Dans ton dépôt, clique sur **"Add file" → "Create new file"**.
+2. Dans le champ du nom, tape exactement `.github/workflows/deploy.yml` (les `/` créent automatiquement les dossiers).
+3. Ouvre le fichier `deploy.yml` de ton dossier local avec un éditeur de texte (Bloc-notes), copie tout son contenu et colle-le dans l'éditeur GitHub.
+4. Clique sur **"Commit changes"**.
 
 ## 5. Personnaliser 2 lignes avant de publier
 
@@ -45,6 +54,8 @@ site_url: https://TON-PSEUDO-GITHUB.github.io/tssr-cours/
 repo_url: https://github.com/TON-PSEUDO-GITHUB/tssr-cours
 ```
 
+Si tu as choisi un autre nom de dépôt que `tssr-cours`, remplace-le aussi dans ces deux adresses.
+
 Clique sur "Commit changes" pour enregistrer.
 
 ## 6. Activer GitHub Pages
@@ -52,7 +63,9 @@ Clique sur "Commit changes" pour enregistrer.
 1. Dans ton dépôt, va dans **"Settings"** (onglet en haut).
 2. Dans le menu de gauche, clique sur **"Pages"**.
 3. Sous "Build and deployment" → "Source", choisis **"GitHub Actions"** (pas "Deploy from a branch").
-4. C'est tout — rien d'autre à faire ici, le fichier `.github/workflows/deploy.yml` déjà présent dans le projet s'occupe du reste.
+4. C'est tout : le fichier `.github/workflows/deploy.yml` déjà présent dans le projet s'occupe du reste.
+
+> Les libellés des menus GitHub évoluent de temps en temps. Si un intitulé ne correspond pas exactement, cherche le plus proche (ex : "Pages" peut se trouver sous une rubrique "Code and automation").
 
 ## 7. Suivre la première publication
 
@@ -60,11 +73,13 @@ Clique sur "Commit changes" pour enregistrer.
 2. Tu dois voir une exécution nommée "Publier le site" en cours (rond orange/jaune) puis terminée (coche verte). Ça prend en général 1 à 2 minutes.
 3. Une fois terminé, ton site est en ligne à l'adresse `https://ton-pseudo.github.io/tssr-cours/`.
 
-Si la coche est **rouge** (erreur), clique sur l'exécution pour voir le message d'erreur — dans la grande majorité des cas, c'est une erreur de syntaxe dans un fichier modifié (voir la section suivante).
+Si la coche est **rouge** (erreur), clique sur l'exécution pour voir le message d'erreur. Dans la grande majorité des cas, c'est une erreur de syntaxe dans un fichier modifié (voir la section suivante).
+
+Si l'onglet "Actions" est vide ou n'affiche aucune exécution, le dossier `.github` n'a probablement pas été envoyé : reprends la méthode de secours de l'étape 4.
 
 ## 8. Utilisation au quotidien
 
-Une fois le site en ligne, consulte directement la page **"+ Ajouter du contenu"** dans le menu du site (aussi disponible dans `docs/ajouter-du-contenu.md`) : elle explique, avec des captures d'écran textuelles, comment modifier une page, ajouter un cours, un terme de glossaire, une commande ou un TP — toujours depuis le navigateur, via l'éditeur GitHub.
+Une fois le site en ligne, consulte directement la page **"+ Ajouter du contenu"** dans le menu du site (aussi disponible dans `docs/ajouter-du-contenu.md`) : elle explique comment modifier une page, ajouter un cours, un terme de glossaire, une commande ou un TP, toujours depuis le navigateur, via l'éditeur GitHub.
 
 En résumé : ouvre le fichier à modifier sur GitHub → clique sur le crayon ✏️ → modifie → "Commit changes" → attends 1-2 minutes → le site est à jour.
 
@@ -72,21 +87,33 @@ En résumé : ouvre le fichier à modifier sur GitHub → clique sur le crayon �
 
 ```
 tssr-site/
-├── mkdocs.yml                  → Configuration générale du site (thème, menu, couleurs)
-├── requirements.txt            → Liste des outils nécessaires pour construire le site
-├── .github/workflows/deploy.yml→ La "recette" qui publie le site automatiquement
-└── docs/                       → TOUT le contenu du site est ici
-    ├── index.md                 → Page d'accueil
-    ├── stylesheets/extra.css    → Styles visuels personnalisés (cartes, quiz, filtres)
-    ├── javascripts/filter.js    → Moteur de recherche/filtre (glossaire, commandes, TP)
-    ├── javascripts/quiz.js      → Moteur des quiz
-    ├── cours/                   → Un dossier par module de cours
-    ├── travaux-pratiques/       → Les TP, classés par cours
+├── mkdocs.yml                   → Configuration générale du site (thème, menu, couleurs)
+├── requirements.txt             → Liste des outils nécessaires pour construire le site
+├── .github/workflows/deploy.yml → La "recette" qui publie le site automatiquement
+└── docs/                        → TOUT le contenu du site est ici
+    ├── index.md                  → Page d'accueil
+    ├── stylesheets/extra.css     → Styles visuels personnalisés (cartes, quiz, filtres)
+    ├── javascripts/filter.js     → Moteur de recherche/filtre (glossaire, commandes, TP)
+    ├── javascripts/quiz.js       → Moteur des quiz
+    ├── cours/                    → Un dossier par module de cours
+    ├── travaux-pratiques/        → Les TP, classés par cours
     ├── commandes/                → Mémos PowerShell / Bash
     └── glossaire/                → Le glossaire
 ```
 
-## 10. Tester en local avant de publier (optionnel)
+## 10. Garder le site stable dans le temps (versions figées)
+
+Si `requirements.txt` ne précise pas de numéros de version, GitHub Actions installe à chaque publication la toute dernière version de MkDocs Material. Une mise à jour de l'outil peut alors casser le site sans que tu aies rien modifié.
+
+Pour éviter ça, fige les versions : une fois que ton site fonctionne, note les versions utilisées (visibles dans le journal de l'exécution réussie, onglet "Actions", étape d'installation des dépendances) et écris-les dans `requirements.txt` avec `==`, par exemple :
+
+```
+mkdocs-material==X.Y.Z
+```
+
+Remplace `X.Y.Z` par la version réellement installée lors d'une publication réussie. Fais de même pour chaque ligne du fichier. Pour mettre à jour l'outil plus tard, change le numéro volontairement et vérifie que la coche reste verte.
+
+## 11. Tester en local avant de publier (optionnel)
 
 Si un jour tu veux voir tes modifications avant de les publier (utile pour un gros changement), et que tu as Python installé sur ton ordinateur :
 
@@ -101,4 +128,4 @@ Puis ouvre `http://127.0.0.1:8000` dans ton navigateur. Ce n'est pas obligatoire
 
 - **Édition** : via l'éditeur de fichiers intégré à GitHub (pas d'interface d'administration séparée pour l'instant).
 - **Quiz** : le score s'affiche en fin de quiz mais n'est pas conservé après avoir quitté la page. Si tu veux plus tard un historique de tes scores, on pourra ajouter une sauvegarde locale au navigateur (simple) ou une vraie synchronisation entre appareils (plus complexe, nécessite une base de données).
-- **Graphiques** : les diagrammes (comme le "résumé visuel" du module d'exemple) utilisent **Mermaid**, intégré nativement — écris ton diagramme en texte, il est dessiné automatiquement. Pour de vrais graphiques de données (barres, courbes), on pourra ajouter Chart.js le jour où tu en as besoin.
+- **Graphiques** : les diagrammes (comme le "résumé visuel" du module d'exemple) utilisent **Mermaid**, intégré nativement : tu écris ton diagramme en texte, il est dessiné automatiquement. Pour de vrais graphiques de données (barres, courbes), on pourra ajouter Chart.js le jour où tu en as besoin.
