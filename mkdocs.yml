@@ -1,11 +1,11 @@
 site_name: TSSR · Mon espace de révision
 site_description: Cours, travaux pratiques, glossaire et mémos de commandes pour la formation TSSR
-site_author: Kassandra
+site_author: Private
 
 # --- À MODIFIER une fois ton compte GitHub créé (voir README.md, étape "Personnaliser") ---
-site_url: https://Kass-19.github.io/tssr-cours/
-repo_url: https://github.com/Kass-19/tssr-cours
-repo_name: tssr-cours
+site_url: https://placilys.github.io/tssr/
+repo_url: https://github.com/placilys/tssr
+repo_name: tssr
 edit_uri: edit/main/docs/
 # -----------------------------------------------------------------------------------------
 
